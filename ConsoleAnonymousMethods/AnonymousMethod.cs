@@ -9,9 +9,14 @@ namespace ConsoleAnonymousMethods
 {
     //delegaten kan pege på en metode som returnerer en int og som har en int parameter
     delegate int delInt1par(int x);
+    
+
 
     class AnonymousMethod
     {
+        delegate bool delBool1par(int x);
+        delegate int delInt2par(int x, int y);
+
         static void Main(string[] args)
         {
 
@@ -53,10 +58,44 @@ namespace ConsoleAnonymousMethods
             //-brug delegaten til at kode et lambda expression som gør det samme som  gtrThan100
             //-hvilken predefineret delagate kan du bruge istedet for din egen delegate -prøv at bruge den med et Lamda expression
 
+            delBool1par delGtrThan100 = gtrThan100;
+            Console.WriteLine("99 larger than 100?: "+ delGtrThan100(99));
+
+            delBool1par delGtrThan100Annonymous = delegate (int x)
+            {
+                return x > 100;
+            };
+            Console.WriteLine("99 larger than 100? (annonym): " + delGtrThan100Annonymous(99));
+
+            delBool1par delGtrThan100Lamda = x => x > 100;
+            Console.WriteLine("99 larger than 100? (lamda): " + delGtrThan100Lamda(99));
+
+            Func<int, bool> funcGtrThan100 = x => x > 100;
+            Console.WriteLine("99 larger than 100? (func): " + funcGtrThan100(99));
+
+
 
             //Opgave2:
             //gør det samme som ovenstående opgave , nu bare med metoden "gange":  private static int gange(int x, int y)
 
+
+            delInt2par delGange = gange;
+            Console.WriteLine("6*5 = "+delGange(6,5));
+
+            delInt2par delGangeAno = delegate (int x, int y)
+            {
+                return x * y;
+            };
+            Console.WriteLine("Ano: "+delGangeAno(6,5));
+
+            delInt2par delGangeLamda = (x1, y1) => x1 * y1;
+            Console.WriteLine("Lamda: "+delGangeLamda(6,5));
+
+            Func<int,int,int> funcGange = (x1, y1) => x1 * y1;
+            Console.WriteLine("Func: "+funcGange(6,5));
+
+
+            Console.ReadLine();
         }
 
 
